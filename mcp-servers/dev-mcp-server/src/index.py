@@ -4,6 +4,7 @@ Dev-MCP-Server - MCP server for building MCP servers
 """
 
 import asyncio
+import json
 import sys
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
@@ -94,14 +95,44 @@ async def list_resources() -> list[Resource]:
 async def read_resource(uri: str) -> str:
     """Read a resource."""
     if uri.startswith("mcp://spec/"):
-        # Return spec reference content
-        return "# MCP Specification\n\nSpecification content..."
+        # Import spec content
+        from spec_reference.tools import MCP_SPEC_CONTENT
+        
+        topic = uri.replace("mcp://spec/", "")
+        if topic == "overview":
+            return "# MCP Specification Overview\n\n" + "\n\n".join([
+                f"## {t}\n\n{MCP_SPEC_CONTENT[t]['overview'][:500]}..." 
+                for t in MCP_SPEC_CONTENT.keys()
+            ])
+        elif topic in MCP_SPEC_CONTENT:
+            return MCP_SPEC_CONTENT[topic]["overview"]
+        else:
+            return "# MCP Specification\n\nAvailable topics: " + ", ".join(MCP_SPEC_CONTENT.keys())
+    
     elif uri.startswith("mcp://examples/"):
-        # Return example code
-        return '{"example": "code"}'
+        # Import example content
+        from example_library.tools import EXAMPLES
+        
+        example_type = uri.replace("mcp://examples/", "")
+        if example_type == "basic":
+            return EXAMPLES["basic"]["python"]
+        elif example_type in EXAMPLES:
+            return json.dumps(EXAMPLES[example_type], indent=2)
+        else:
+            return json.dumps({"available": list(EXAMPLES.keys())}, indent=2)
+    
     elif uri.startswith("mcp://patterns/"):
-        # Return pattern documentation
-        return "# Pattern Documentation\n\nPattern content..."
+        # Import pattern content
+        from example_library.tools import PATTERNS
+        
+        pattern_name = uri.replace("mcp://patterns/", "")
+        if pattern_name == "auth":
+            pattern_name = "authentication"
+        elif pattern_name in PATTERNS:
+            return PATTERNS[pattern_name]["python"]
+        else:
+            return "# Patterns\n\nAvailable patterns: " + ", ".join(PATTERNS.keys())
+    
     else:
         raise ValueError(f"Unknown resource: {uri}")
 

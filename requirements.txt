@@ -1,0 +1,20 @@
+# MCP-ISO Root Requirements
+# Core dependencies for the MCP-ISO repository
+
+# Core MCP SDK
+# Note: Install specific MCP server requirements from their respective directories
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# Development tools (optional but recommended)
+pytest>=7.4.0
+mypy>=1.5.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Note: Individual MCP servers have their own requirements.txt files:
+# - mcp-servers/dev-mcp-server/requirements.txt
+# - mcp-servers/discord-mcp-server/requirements.txt
+

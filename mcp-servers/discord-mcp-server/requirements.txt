@@ -1,0 +1,13 @@
+# Discord-MCP-Server Requirements
+# MCP server for Discord development
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Discord SDK (optional, for testing)
+discord.py>=2.0.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+aiohttp>=3.9.0
+

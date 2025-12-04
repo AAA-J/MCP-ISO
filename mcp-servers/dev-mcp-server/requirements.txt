@@ -1,0 +1,13 @@
+# Dev-MCP-Server Requirements
+# MCP server for building MCP servers
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# Development tools (optional)
+pytest>=7.4.0
+mypy>=1.5.0
+

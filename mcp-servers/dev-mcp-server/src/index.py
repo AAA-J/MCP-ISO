@@ -94,11 +94,14 @@ async def list_resources() -> list[Resource]:
 @server.read_resource()
 async def read_resource(uri: str) -> str:
     """Read a resource."""
-    if uri.startswith("mcp://spec/"):
+    # Convert URI to string if it's an AnyUrl object
+    uri_str = str(uri)
+    
+    if uri_str.startswith("mcp://spec/"):
         # Import spec content
         from spec_reference.tools import MCP_SPEC_CONTENT
         
-        topic = uri.replace("mcp://spec/", "")
+        topic = uri_str.replace("mcp://spec/", "")
         if topic == "overview":
             return "# MCP Specification Overview\n\n" + "\n\n".join([
                 f"## {t}\n\n{MCP_SPEC_CONTENT[t]['overview'][:500]}..." 
@@ -109,11 +112,11 @@ async def read_resource(uri: str) -> str:
         else:
             return "# MCP Specification\n\nAvailable topics: " + ", ".join(MCP_SPEC_CONTENT.keys())
     
-    elif uri.startswith("mcp://examples/"):
+    elif uri_str.startswith("mcp://examples/"):
         # Import example content
         from example_library.tools import EXAMPLES
         
-        example_type = uri.replace("mcp://examples/", "")
+        example_type = uri_str.replace("mcp://examples/", "")
         if example_type == "basic":
             return EXAMPLES["basic"]["python"]
         elif example_type in EXAMPLES:
@@ -121,20 +124,21 @@ async def read_resource(uri: str) -> str:
         else:
             return json.dumps({"available": list(EXAMPLES.keys())}, indent=2)
     
-    elif uri.startswith("mcp://patterns/"):
+    elif uri_str.startswith("mcp://patterns/"):
         # Import pattern content
         from example_library.tools import PATTERNS
         
-        pattern_name = uri.replace("mcp://patterns/", "")
+        pattern_name = uri_str.replace("mcp://patterns/", "")
         if pattern_name == "auth":
             pattern_name = "authentication"
-        elif pattern_name in PATTERNS:
+        
+        if pattern_name in PATTERNS:
             return PATTERNS[pattern_name]["python"]
         else:
             return "# Patterns\n\nAvailable patterns: " + ", ".join(PATTERNS.keys())
     
     else:
-        raise ValueError(f"Unknown resource: {uri}")
+        raise ValueError(f"Unknown resource: {uri_str}")
 
 async def main():
     """Main entry point."""

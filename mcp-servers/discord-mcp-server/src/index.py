@@ -111,10 +111,13 @@ async def read_resource(uri: str) -> str:
     """Read a resource."""
     import os
     
-    if uri.startswith("discord://docs/"):
+    # Convert URI to string if it's an AnyUrl object
+    uri_str = str(uri)
+    
+    if uri_str.startswith("discord://docs/"):
         # Return documentation reference with links
-        topic = uri.replace("discord://docs/", "").replace("-", " ").title()
-        topic_slug = uri.replace("discord://docs/", "")
+        topic = uri_str.replace("discord://docs/", "").replace("-", " ").title()
+        topic_slug = uri_str.replace("discord://docs/", "")
         
         # Try to read from DISCORD_DEV_DOCS.md
         docs_path = os.path.join(os.path.dirname(__file__), "..", "docs", "DISCORD_DEV_DOCS.md")
@@ -139,9 +142,9 @@ async def read_resource(uri: str) -> str:
         link = doc_links.get(topic_slug, "https://discord.com/developers/docs")
         return f"# Discord {topic} Documentation\n\nSee the official Discord Developer Documentation:\n{link}\n\nFor complete reference, see docs/DISCORD_DEV_DOCS.md"
     
-    elif uri.startswith("discord://examples/"):
+    elif uri_str.startswith("discord://examples/"):
         # Return example code
-        example_type = uri.replace("discord://examples/", "")
+        example_type = uri_str.replace("discord://examples/", "")
         
         examples = {
             "slash-commands": {
@@ -189,7 +192,7 @@ const row = new ActionRowBuilder<ButtonBuilder>()
             return json.dumps(examples[example_type], indent=2)
         return json.dumps({"example": example_type, "code": "// Example code here"}, indent=2)
     else:
-        raise ValueError(f"Unknown resource: {uri}")
+        raise ValueError(f"Unknown resource: {uri_str}")
 
 async def main():
     """Main entry point."""

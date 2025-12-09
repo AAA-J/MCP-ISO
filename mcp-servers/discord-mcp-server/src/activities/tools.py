@@ -536,7 +536,7 @@ def generate_vanilla_package_json(activity_name: str) -> str:
 
 def generate_phaser_game(activity_name: str, has_multiplayer: bool) -> str:
     """Generate Phaser game code."""
-    return f'''import Phaser from 'phaser';
+    code = f'''import Phaser from 'phaser';
 import {{ DiscordSDK }} from '@discord/embedded-app-sdk';
 import GameScene from './scenes/GameScene';
 
@@ -580,6 +580,7 @@ async function init() {{
 
 init();
 '''
+    return code
 
 def generate_phaser_scene(has_multiplayer: bool) -> str:
     """Generate Phaser scene."""

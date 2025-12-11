@@ -1,0 +1,29 @@
+# App-DB-Readonly MCP Server Requirements
+# MCP server for safe, read-only database access
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# Database drivers
+# Azure SQL / SQL Server (default)
+pyodbc>=4.0.0
+# Alternative: pymssql>=2.2.0
+
+# PostgreSQL (optional)
+psycopg2-binary>=2.9.0
+
+# MySQL (optional)
+pymysql>=1.0.0
+
+# SQLite (built-in, but can use aiosqlite for async)
+# aiosqlite>=0.19.0
+
+# SQL parsing and validation
+sqlparse>=0.4.0
+
+# Configuration file support (optional)
+pyyaml>=6.0.0
+

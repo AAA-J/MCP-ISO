@@ -1,0 +1,2 @@
+"""Documentation reader module."""
+

@@ -1,0 +1,27 @@
+# App-Ops MCP Server Requirements
+# MCP server for observability and CI/CD integration
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# HTTP client
+httpx>=0.24.0
+
+# GitHub Actions support (default)
+PyGithub>=1.59.0
+
+# GitLab CI support (optional)
+# python-gitlab>=3.15.0
+
+# Jenkins support (optional)
+# jenkinsapi>=0.3.13
+
+# Azure DevOps support (optional)
+# azure-devops>=6.0.0
+
+# Configuration file support
+pyyaml>=6.0.0
+

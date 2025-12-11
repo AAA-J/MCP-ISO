@@ -1,0 +1,21 @@
+# App-API MCP Server Requirements
+# MCP server for backend API integration
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# HTTP client
+httpx>=0.24.0
+
+# Configuration file support
+pyyaml>=6.0.0
+
+# GraphQL support (optional)
+# gql[aiohttp]>=3.4.0
+
+# OpenAPI schema validation (optional, for FastAPI/Flask)
+# openapi-spec-validator>=0.7.0
+

@@ -1,0 +1,15 @@
+# App-Domain MCP Server Requirements
+# MCP server for domain-specific business logic
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# HTTP client (for API-based tools)
+httpx>=0.24.0
+
+# Configuration file support
+pyyaml>=6.0.0
+

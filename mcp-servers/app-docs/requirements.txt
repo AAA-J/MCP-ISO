@@ -1,0 +1,12 @@
+# App-Docs MCP Server Requirements
+# MCP server for accessing internal documentation
+
+# Core MCP SDK
+mcp>=0.1.0
+
+# Standard library dependencies
+python-dotenv>=1.0.0
+
+# Documentation parsing (optional, for future enhancements)
+# markdown>=3.4.0
+

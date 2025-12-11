@@ -1,0 +1,116 @@
+# Domain Tools Configuration
+# Define your domain-specific tools here
+
+tools:
+  # Example: Finance app tools
+  - name: calculate_interest_schedule
+    description: Calculate interest schedule for a loan
+    execution: api  # or "function"
+    method: POST
+    endpoint: /finance/calculate-interest
+    inputSchema:
+      type: object
+      properties:
+        principal:
+          type: number
+          description: Loan principal amount
+        rate:
+          type: number
+          description: Annual interest rate (as decimal, e.g., 0.05 for 5%)
+        term_months:
+          type: integer
+          description: Loan term in months
+      required:
+        - principal
+        - rate
+        - term_months
+
+  - name: simulate_portfolio
+    description: Simulate portfolio performance
+    execution: api
+    method: POST
+    endpoint: /finance/simulate-portfolio
+    inputSchema:
+      type: object
+      properties:
+        investments:
+          type: array
+          description: List of investments
+          items:
+            type: object
+            properties:
+              symbol:
+                type: string
+              amount:
+                type: number
+        timeframe:
+          type: string
+          description: Timeframe for simulation (e.g., "1y", "5y")
+      required:
+        - investments
+        - timeframe
+
+  # Example: Project management tools
+  - name: create_project
+    description: Create a new project
+    execution: api
+    method: POST
+    endpoint: /projects
+    inputSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Project name
+        description:
+          type: string
+          description: Project description
+        owner_id:
+          type: string
+          description: Owner user ID
+      required:
+        - name
+        - owner_id
+
+  - name: add_task
+    description: Add a task to a project
+    execution: api
+    method: POST
+    endpoint: /projects/{project_id}/tasks
+    inputSchema:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: Project ID
+        title:
+          type: string
+          description: Task title
+        description:
+          type: string
+          description: Task description
+        assignee_id:
+          type: string
+          description: Assignee user ID
+      required:
+        - project_id
+        - title
+
+  - name: reassign_task
+    description: Reassign a task to a different user
+    execution: api
+    method: PUT
+    endpoint: /tasks/{task_id}/assign
+    inputSchema:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Task ID
+        assignee_id:
+          type: string
+          description: New assignee user ID
+      required:
+        - task_id
+        - assignee_id
+

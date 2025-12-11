@@ -12,7 +12,7 @@ MCP server for safe, read-only database access. Provides agents with controlled 
 ## Installation
 
 ```bash
-cd mcp-servers/app-db-readonly
+cd mcp-servers/application/app-db-readonly
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file in the `app-db-readonly` directory:
+Create a `.env` file in the `application/app-db-readonly` directory:
 
 ### Azure SQL Database (Default)
 
@@ -73,7 +73,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "app-db-readonly": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/app-db-readonly/src/index.py"],
+      "args": ["/path/to/mcp-servers/application/app-db-readonly/src/index.py"],
       "env": {
         "DB_TYPE": "azure_sql",
         "DB_CONNECTION_STRING": "your-connection-string"

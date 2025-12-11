@@ -57,7 +57,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "discord-mcp-server": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/discord-mcp-server/src/index.py"],
+      "args": ["/path/to/mcp-servers/development/discord-mcp-server/src/index.py"],
       "env": {
         "DISCORD_TOKEN": "your_bot_token_here"
       }
@@ -72,8 +72,8 @@ If using venv, use the venv Python:
 {
   "mcpServers": {
     "discord-mcp-server": {
-      "command": "/path/to/mcp-servers/discord-mcp-server/venv/bin/python",
-      "args": ["src/index.py"],
+      "command": "/path/to/mcp-servers/development/discord-mcp-server/venv/bin/python",
+      "args": ["/path/to/mcp-servers/development/discord-mcp-server/src/index.py"],
       "env": {
         "DISCORD_TOKEN": "your_bot_token_here"
       }

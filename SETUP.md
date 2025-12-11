@@ -21,8 +21,16 @@ cd MCP-ISO
 
 Each MCP server is self-contained. Navigate to the server directory:
 
-- **Dev-MCP-Server**: `cd mcp-servers/dev-mcp-server`
-- **Discord-MCP-Server**: `cd mcp-servers/discord-mcp-server`
+**Development Tools** (in `mcp-servers/development/`):
+- **Dev-MCP-Server**: `cd mcp-servers/development/dev-mcp-server`
+- **Discord-MCP-Server**: `cd mcp-servers/development/discord-mcp-server`
+
+**Application Servers** (in `mcp-servers/application/`):
+- **App-Docs**: `cd mcp-servers/application/app-docs`
+- **App-DB-Readonly**: `cd mcp-servers/application/app-db-readonly`
+- **App-API**: `cd mcp-servers/application/app-api`
+- **App-Ops**: `cd mcp-servers/application/app-ops`
+- **App-Domain**: `cd mcp-servers/application/app-domain`
 
 ### 3. Set Up Virtual Environment (Recommended)
 
@@ -51,7 +59,7 @@ pip install -r requirements.txt
 
 **Setup**:
 ```bash
-cd mcp-servers/dev-mcp-server
+cd mcp-servers/development/dev-mcp-server
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -69,8 +77,8 @@ python src/index.py
 {
   "mcpServers": {
     "dev-mcp-server": {
-      "command": "/path/to/mcp-servers/dev-mcp-server/venv/bin/python",
-      "args": ["src/index.py"]
+      "command": "/path/to/mcp-servers/development/dev-mcp-server/venv/bin/python",
+      "args": ["/path/to/mcp-servers/development/dev-mcp-server/src/index.py"]
     }
   }
 }
@@ -82,7 +90,7 @@ python src/index.py
 
 **Setup**:
 ```bash
-cd mcp-servers/discord-mcp-server
+cd mcp-servers/development/discord-mcp-server
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -90,7 +98,7 @@ pip install -r requirements.txt
 
 **Environment Variables**:
 
-Create a `.env` file in `mcp-servers/discord-mcp-server/`:
+Create a `.env` file in `mcp-servers/development/discord-mcp-server/`:
 
 ```env
 DISCORD_TOKEN=your_bot_token_here
@@ -114,8 +122,8 @@ python src/index.py
 {
   "mcpServers": {
     "discord-mcp-server": {
-      "command": "/path/to/mcp-servers/discord-mcp-server/venv/bin/python",
-      "args": ["src/index.py"],
+      "command": "/path/to/mcp-servers/development/discord-mcp-server/venv/bin/python",
+      "args": ["/path/to/mcp-servers/development/discord-mcp-server/src/index.py"],
       "env": {
         "DISCORD_TOKEN": "your_bot_token_here"
       }
@@ -141,18 +149,20 @@ Before configuring your IDE, ensure you have:
 You'll need these paths for IDE configuration:
 
 **Python Executable Path:**
-- **macOS/Linux**: `/full/path/to/mcp-servers/[server-name]/venv/bin/python`
-- **Windows**: `C:\full\path\to\mcp-servers\[server-name]\venv\Scripts\python.exe`
+- **Development Tools**: `/full/path/to/mcp-servers/development/[server-name]/venv/bin/python`
+- **Application Servers**: `/full/path/to/mcp-servers/application/[server-name]/venv/bin/python`
+- **Windows**: `C:\full\path\to\mcp-servers\[category]\[server-name]\venv\Scripts\python.exe`
 
 **Server Script Path:**
-- **macOS/Linux**: `/full/path/to/mcp-servers/[server-name]/src/index.py`
-- **Windows**: `C:\full\path\to\mcp-servers\[server-name]\src\index.py`
+- **Development Tools**: `/full/path/to/mcp-servers/development/[server-name]/src/index.py`
+- **Application Servers**: `/full/path/to/mcp-servers/application/[server-name]/src/index.py`
+- **Windows**: `C:\full\path\to\mcp-servers\[category]\[server-name]\src\index.py`
 
 **To find your paths:**
 
 ```bash
 # Get absolute path to Python executable (run from server directory)
-cd mcp-servers/dev-mcp-server  # or discord-mcp-server
+cd mcp-servers/development/dev-mcp-server  # or development/discord-mcp-server, or application/app-*
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 which python  # macOS/Linux
 # or
@@ -172,8 +182,8 @@ Your IDE will need a configuration file (usually JSON) with this structure:
 {
   "mcpServers": {
     "dev-mcp-server": {
-      "command": "/absolute/path/to/venv/bin/python",
-      "args": ["/absolute/path/to/mcp-servers/dev-mcp-server/src/index.py"]
+      "command": "/absolute/path/to/mcp-servers/development/dev-mcp-server/venv/bin/python",
+      "args": ["/absolute/path/to/mcp-servers/development/dev-mcp-server/src/index.py"]
     }
   }
 }
@@ -184,10 +194,26 @@ Your IDE will need a configuration file (usually JSON) with this structure:
 {
   "mcpServers": {
     "discord-mcp-server": {
-      "command": "/absolute/path/to/venv/bin/python",
-      "args": ["/absolute/path/to/mcp-servers/discord-mcp-server/src/index.py"],
+      "command": "/absolute/path/to/mcp-servers/development/discord-mcp-server/venv/bin/python",
+      "args": ["/absolute/path/to/mcp-servers/development/discord-mcp-server/src/index.py"],
       "env": {
         "DISCORD_TOKEN": "your_bot_token_here"
+      }
+    }
+  }
+}
+```
+
+**For Application Servers (example: app-docs):**
+```json
+{
+  "mcpServers": {
+    "app-docs": {
+      "command": "/absolute/path/to/mcp-servers/application/app-docs/venv/bin/python",
+      "args": ["/absolute/path/to/mcp-servers/application/app-docs/src/index.py"],
+      "env": {
+        "BASE_DIR": "/path/to/your/project",
+        "DOCS_DIR": "docs"
       }
     }
   }
@@ -247,37 +273,57 @@ The AI assistant can help you:
 - **Solution**: Check that all dependencies are installed in the venv
 - **Solution**: Review server logs for specific error messages
 
-## Setup Script (Optional)
+## Setup Scripts
 
-You can automate setup with a simple script:
+The repository includes several utility scripts to help with setup and verification:
+
+### Main Setup Script
+
+Run the main setup script to install all MCP servers:
 
 ```bash
-#!/bin/bash
-# setup.sh
-
-echo "Setting up MCP-ISO..."
-
-# Setup Dev-MCP-Server
-echo "Setting up Dev-MCP-Server..."
-cd mcp-servers/dev-mcp-server
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-deactivate
-cd ../..
-
-# Setup Discord-MCP-Server
-echo "Setting up Discord-MCP-Server..."
-cd mcp-servers/discord-mcp-server
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-deactivate
-cd ../..
-
-echo "Setup complete!"
-echo "Remember to create .env file in discord-mcp-server/ with your Discord credentials"
+./setup.sh
 ```
+
+This will set up:
+- Dev-MCP-Server
+- Discord-MCP-Server
+- All custom app servers (app-docs, app-db-readonly, app-api, app-ops, app-domain)
+
+### Utility Scripts
+
+The `scripts/` directory contains helpful utilities:
+
+**Check Server Configuration:**
+```bash
+./scripts/check_mcp_servers.sh
+```
+Verifies that MCP servers are properly configured, checks Python versions, dependencies, and paths.
+
+**Fix Common Issues:**
+```bash
+./scripts/fix_mcp_servers.sh
+```
+Automatically fixes common setup issues like Python version problems and missing dependencies.
+
+**Setup Custom Servers:**
+```bash
+./scripts/setup_custom_servers.sh
+```
+Sets up all custom app servers (app-docs, app-db-readonly, app-api, app-ops, app-domain).
+
+**Verify Servers Are Running:**
+See [VERIFY_MCP_SERVERS.md](VERIFY_MCP_SERVERS.md) for detailed instructions on verifying that MCP servers are running correctly in your IDE.
+
+## Utility Scripts
+
+Before troubleshooting manually, try using the utility scripts:
+
+- **`./scripts/check_mcp_servers.sh`** - Check server configuration and setup
+- **`./scripts/fix_mcp_servers.sh`** - Automatically fix common setup issues
+- **`./scripts/setup_custom_servers.sh`** - Setup custom app servers
+
+For detailed verification instructions, see [VERIFY_MCP_SERVERS.md](VERIFY_MCP_SERVERS.md).
 
 ## Troubleshooting
 
@@ -295,7 +341,7 @@ echo "Remember to create .env file in discord-mcp-server/ with your Discord cred
 
 **Problem**: Discord API calls fail
 **Solution**:
-1. Verify `.env` file exists in `mcp-servers/discord-mcp-server/`
+1. Verify `.env` file exists in `mcp-servers/development/discord-mcp-server/`
 2. Check token is correct (no extra spaces)
 3. Ensure bot is invited to server with required permissions
 
@@ -319,18 +365,22 @@ echo "Remember to create .env file in discord-mcp-server/ with your Discord cred
 
 After setup:
 
-1. **Test the Server**: Run `python src/index.py` to verify it starts correctly
+1. **Verify Setup**: Run `./scripts/check_mcp_servers.sh` to verify everything is configured correctly
 
 2. **Install into IDE**: Follow the [Installing MCP Servers into Your IDE](#installing-mcp-servers-into-your-ide) section above to configure your IDE
 
-3. **Read the server README**: Each MCP server has detailed documentation
-   - [Dev-MCP-Server README](mcp-servers/dev-mcp-server/README.md)
-   - [Discord-MCP-Server README](mcp-servers/discord-mcp-server/README.md)
+3. **Verify Servers Are Running**: See [VERIFY_MCP_SERVERS.md](VERIFY_MCP_SERVERS.md) for detailed instructions on verifying that MCP servers are running correctly in your IDE
 
-4. **Explore Tools**: Check available tools in each server's README and try using them through your IDE
+4. **Read the server README**: Each MCP server has detailed documentation
+   - [Dev-MCP-Server README](mcp-servers/development/dev-mcp-server/README.md)
+   - [Discord-MCP-Server README](mcp-servers/development/discord-mcp-server/README.md)
+   - Application servers: See `mcp-servers/application/app-*/README.md` files
+
+5. **Explore Tools**: Check available tools in each server's README and try using them through your IDE
 
 ## Additional Resources
 
+- [Verify MCP Servers](VERIFY_MCP_SERVERS.md) - Guide to verify MCP servers are running correctly
 - [MCP Server Guide](docs/MCP_SERVER_GUIDE.md) - Complete guide to creating MCP servers
 - [MCP Best Use Cases](docs/MCP_BEST_USE_CASES.md) - Best practices and patterns
 - [MCP Specification](https://modelcontextprotocol.io)

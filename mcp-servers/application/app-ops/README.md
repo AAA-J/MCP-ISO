@@ -12,7 +12,7 @@ MCP server for observability and CI/CD integration. Provides agents with control
 ## Installation
 
 ```bash
-cd mcp-servers/app-ops
+cd mcp-servers/application/app-ops
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file in the `app-ops` directory:
+Create a `.env` file in the `application/app-ops` directory:
 
 ### GitHub Actions (Default)
 
@@ -69,7 +69,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "app-ops": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/app-ops/src/index.py"],
+      "args": ["/path/to/mcp-servers/application/app-ops/src/index.py"],
       "env": {
         "CICD_TYPE": "github_actions",
         "CICD_TOKEN": "ghp_your_token",

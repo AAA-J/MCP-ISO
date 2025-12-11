@@ -50,7 +50,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "dev-mcp-server": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/dev-mcp-server/src/index.py"]
+      "args": ["/path/to/mcp-servers/development/dev-mcp-server/src/index.py"]
     }
   }
 }
@@ -62,8 +62,8 @@ If using venv, use the venv Python:
 {
   "mcpServers": {
     "dev-mcp-server": {
-      "command": "/path/to/mcp-servers/dev-mcp-server/venv/bin/python",
-      "args": ["src/index.py"]
+      "command": "/path/to/mcp-servers/development/dev-mcp-server/venv/bin/python",
+      "args": ["/path/to/mcp-servers/development/dev-mcp-server/src/index.py"]
     }
   }
 }

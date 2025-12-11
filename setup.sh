@@ -17,8 +17,9 @@ echo "✓ Found Python $PYTHON_VERSION"
 
 # Function to setup a server
 setup_server() {
-    local server_name=$1
-    local server_path="mcp-servers/$server_name"
+    local category=$1
+    local server_name=$2
+    local server_path="mcp-servers/$category/$server_name"
     
     echo ""
     echo "📦 Setting up $server_name..."
@@ -45,24 +46,23 @@ setup_server() {
     pip install -r requirements.txt
     deactivate
     
-    cd ../..
+    cd ../../..
     echo "✓ $server_name setup complete"
 }
 
-# Setup Dev-MCP-Server
-setup_server "dev-mcp-server"
+# Setup Development Tools
+echo "📦 Setting up development tools..."
+setup_server "development" "dev-mcp-server"
+setup_server "development" "discord-mcp-server"
 
-# Setup Discord-MCP-Server
-setup_server "discord-mcp-server"
-
-# Setup Custom App Servers
+# Setup Application Servers
 echo ""
-echo "📦 Setting up custom app servers..."
-setup_server "app-docs"
-setup_server "app-db-readonly"
-setup_server "app-api"
-setup_server "app-ops"
-setup_server "app-domain"
+echo "📦 Setting up application servers..."
+setup_server "application" "app-docs"
+setup_server "application" "app-db-readonly"
+setup_server "application" "app-api"
+setup_server "application" "app-ops"
+setup_server "application" "app-domain"
 
 echo ""
 echo "✅ Setup complete!"
@@ -75,7 +75,7 @@ echo "   4. Check each server's README for usage examples"
 echo ""
 echo "📚 Documentation:"
 echo "   - Setup Guide: SETUP.md"
-echo "   - Dev-MCP-Server: mcp-servers/dev-mcp-server/README.md"
-echo "   - Discord-MCP-Server: mcp-servers/discord-mcp-server/README.md"
-echo "   - Custom Servers: See mcp-servers/app-*/README.md files"
+echo "   - Dev-MCP-Server: mcp-servers/development/dev-mcp-server/README.md"
+echo "   - Discord-MCP-Server: mcp-servers/development/discord-mcp-server/README.md"
+echo "   - Application Servers: See mcp-servers/application/app-*/README.md files"
 

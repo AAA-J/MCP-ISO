@@ -12,7 +12,7 @@ MCP server for domain-specific business logic shortcuts. Provides typed tools fo
 ## Installation
 
 ```bash
-cd mcp-servers/app-domain
+cd mcp-servers/application/app-domain
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file in the `app-domain` directory:
+Create a `.env` file in the `application/app-domain` directory:
 
 ```env
 # Domain tools configuration file
@@ -56,7 +56,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "app-domain": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/app-domain/src/index.py"],
+      "args": ["/path/to/mcp-servers/application/app-domain/src/index.py"],
       "env": {
         "DOMAIN_TOOLS_CONFIG": "domain_tools.yaml",
         "API_BASE_URL": "https://api.example.com",

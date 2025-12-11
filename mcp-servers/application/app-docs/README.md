@@ -12,7 +12,7 @@ MCP server for accessing internal documentation and specifications. Makes all yo
 ## Installation
 
 ```bash
-cd mcp-servers/app-docs
+cd mcp-servers/application/app-docs
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file in the `app-docs` directory:
+Create a `.env` file in the `application/app-docs` directory:
 
 ```env
 # Base directory where documentation is located (default: current working directory)
@@ -47,7 +47,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "app-docs": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/app-docs/src/index.py"],
+      "args": ["/path/to/mcp-servers/application/app-docs/src/index.py"],
       "env": {
         "BASE_DIR": "/path/to/your/project",
         "DOCS_DIR": "docs"

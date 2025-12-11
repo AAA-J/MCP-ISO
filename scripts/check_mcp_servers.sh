@@ -1,6 +1,10 @@
 #!/bin/bash
 # Quick script to verify MCP servers are set up correctly
 
+# Get the repository root directory (parent of scripts directory)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 echo "🔍 Checking MCP Server Configuration..."
 echo ""
 
@@ -42,8 +46,8 @@ echo ""
 echo "2. Checking server paths..."
 
 # Check dev-mcp-server
-DEV_PYTHON="/Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server/venv/bin/python"
-DEV_SCRIPT="/Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server/src/index.py"
+DEV_PYTHON="$REPO_ROOT/mcp-servers/development/dev-mcp-server/venv/bin/python"
+DEV_SCRIPT="$REPO_ROOT/mcp-servers/development/dev-mcp-server/src/index.py"
 
 if [ -f "$DEV_PYTHON" ]; then
     echo -e "${GREEN}✅${NC} dev-mcp-server Python exists: $DEV_PYTHON"
@@ -69,8 +73,8 @@ else
 fi
 
 # Check discord-mcp-server
-DISCORD_PYTHON="/Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server/venv/bin/python"
-DISCORD_SCRIPT="/Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server/src/index.py"
+DISCORD_PYTHON="$REPO_ROOT/mcp-servers/development/discord-mcp-server/venv/bin/python"
+DISCORD_SCRIPT="$REPO_ROOT/mcp-servers/development/discord-mcp-server/src/index.py"
 
 if [ -f "$DISCORD_PYTHON" ]; then
     echo -e "${GREEN}✅${NC} discord-mcp-server Python exists: $DISCORD_PYTHON"
@@ -104,7 +108,7 @@ if [ -f "$DEV_PYTHON" ]; then
         echo -e "${GREEN}✅${NC} MCP package installed in dev-mcp-server venv"
     else
         echo -e "${RED}❌${NC} MCP package NOT installed in dev-mcp-server venv"
-        echo -e "${YELLOW}   Run: cd mcp-servers/dev-mcp-server && source venv/bin/activate && pip install -r requirements.txt${NC}"
+        echo -e "${YELLOW}   Run: cd mcp-servers/development/dev-mcp-server && source venv/bin/activate && pip install -r requirements.txt${NC}"
     fi
 fi
 
@@ -114,7 +118,7 @@ if [ -f "$DISCORD_PYTHON" ]; then
         echo -e "${GREEN}✅${NC} MCP package installed in discord-mcp-server venv"
     else
         echo -e "${RED}❌${NC} MCP package NOT installed in discord-mcp-server venv"
-        echo -e "${YELLOW}   Run: cd mcp-servers/discord-mcp-server && source venv/bin/activate && pip install -r requirements.txt${NC}"
+        echo -e "${YELLOW}   Run: cd mcp-servers/development/discord-mcp-server && source venv/bin/activate && pip install -r requirements.txt${NC}"
     fi
 fi
 
@@ -144,6 +148,6 @@ echo "  2. Check Cursor's Output panel (View → Output → select 'MCP')"
 echo "  3. Try using a tool: Ask the AI assistant to use a tool from dev-mcp-server"
 echo "  4. Check logs: ~/Library/Application Support/Cursor/logs/"
 echo ""
-echo "For detailed instructions, see: VERIFY_MCP_SERVERS.md"
+echo "For detailed instructions, see: $REPO_ROOT/VERIFY_MCP_SERVERS.md"
 echo ""
 

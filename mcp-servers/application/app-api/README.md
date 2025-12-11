@@ -12,7 +12,7 @@ MCP server that wraps your backend API with typed tools. Provides a clean interf
 ## Installation
 
 ```bash
-cd mcp-servers/app-api
+cd mcp-servers/application/app-api
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file in the `app-api` directory:
+Create a `.env` file in the `application/app-api` directory:
 
 ### Basic Configuration
 
@@ -66,7 +66,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "app-api": {
       "command": "python",
-      "args": ["/path/to/mcp-servers/app-api/src/index.py"],
+      "args": ["/path/to/mcp-servers/application/app-api/src/index.py"],
       "env": {
         "API_BASE_URL": "https://api.example.com",
         "API_TYPE": "rest",

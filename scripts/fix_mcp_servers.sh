@@ -49,9 +49,13 @@ if [ -z "$PYTHON_CMD" ]; then
     fi
 fi
 
+# Get the repository root directory (parent of scripts directory)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 echo ""
 echo "Setting up dev-mcp-server..."
-cd "$(dirname "$0")/mcp-servers/dev-mcp-server"
+cd "$REPO_ROOT/mcp-servers/development/dev-mcp-server"
 
 # Remove old venv
 if [ -d "venv" ]; then
@@ -74,7 +78,7 @@ deactivate
 
 echo ""
 echo "Setting up discord-mcp-server..."
-cd "../discord-mcp-server"
+cd "$REPO_ROOT/mcp-servers/development/discord-mcp-server"
 
 # Remove old venv
 if [ -d "venv" ]; then
@@ -107,6 +111,6 @@ echo "  3. Try using a tool from one of the servers to verify"
 echo ""
 echo "If you still see errors, check:"
 echo "  - Cursor's Output panel (View → Output → select 'MCP')"
-echo "  - Run: ./check_mcp_servers.sh"
+echo "  - Run: ./scripts/check_mcp_servers.sh"
 echo ""
 

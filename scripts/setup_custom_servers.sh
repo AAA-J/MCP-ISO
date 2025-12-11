@@ -4,7 +4,8 @@
 set -e  # Exit on error
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MCP_SERVERS_DIR="$SCRIPT_DIR/mcp-servers"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+MCP_SERVERS_DIR="$REPO_ROOT/mcp-servers/application"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -34,9 +35,9 @@ setup_server() {
     
     # Use the same Python as existing servers (Python 3.13)
     PYTHON_CMD=""
-    if [ -f "$MCP_SERVERS_DIR/dev-mcp-server/venv/bin/python" ]; then
+    if [ -f "$REPO_ROOT/mcp-servers/development/dev-mcp-server/venv/bin/python" ]; then
         # Use the same Python interpreter as existing servers
-        PYTHON_CMD="$MCP_SERVERS_DIR/dev-mcp-server/venv/bin/python"
+        PYTHON_CMD="$REPO_ROOT/mcp-servers/development/dev-mcp-server/venv/bin/python"
         PYTHON_VERSION=$($PYTHON_CMD --version 2>&1)
         echo -e "  ${YELLOW}Using $PYTHON_VERSION from existing server${NC}"
     else

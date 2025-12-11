@@ -23,14 +23,29 @@ This guide shows you multiple ways to check if your MCP servers are up and runni
    - `Help` → `Toggle Developer Tools`
    - Look in the Console for MCP-related messages
 
-## Method 2: Test Servers Manually from Command Line
+## Method 2: Use the Check Script (Recommended)
+
+The easiest way to verify your setup is to use the check script:
+
+```bash
+./scripts/check_mcp_servers.sh
+```
+
+This script will:
+- Check your MCP configuration file
+- Verify server paths exist
+- Check Python versions
+- Verify dependencies are installed
+- Test server startup
+
+## Method 3: Test Servers Manually from Command Line
 
 Before servers can work in Cursor, they should start without errors manually:
 
 ### Test Dev-MCP-Server:
 
 ```bash
-cd /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server
+cd mcp-servers/development/dev-mcp-server
 source venv/bin/activate
 python src/index.py
 ```
@@ -45,14 +60,14 @@ python src/index.py
 ### Test Discord-MCP-Server:
 
 ```bash
-cd /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server
+cd mcp-servers/development/discord-mcp-server
 source venv/bin/activate
 python src/index.py
 ```
 
 **Expected behavior**: Same as above - server starts and waits.
 
-## Method 3: Check Cursor Logs
+## Method 4: Check Cursor Logs
 
 Cursor stores logs that can show MCP server connection status:
 
@@ -70,7 +85,7 @@ Look for:
 - ❌ Import errors
 - ❌ Path not found errors
 
-## Method 4: Try Using a Tool from the Server
+## Method 5: Try Using a Tool from the Server
 
 The best way to verify a server is working is to actually use it:
 
@@ -91,7 +106,7 @@ Try asking:
 
 **If tools don't appear or fail**: ❌ Check the logs and verify setup
 
-## Method 5: Verify Configuration File
+## Method 6: Verify Configuration File
 
 Check that your configuration is correct:
 
@@ -99,9 +114,15 @@ Check that your configuration is correct:
 # View your MCP configuration
 cat ~/.cursor/mcp.json | python3 -m json.tool
 
-# Verify paths exist
-test -f /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server/venv/bin/python && echo "✅ dev-mcp-server Python exists" || echo "❌ dev-mcp-server Python missing"
-test -f /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server/venv/bin/python && echo "✅ discord-mcp-server Python exists" || echo "❌ discord-mcp-server Python missing"
+# Verify paths exist (replace with your actual repository path)
+REPO_ROOT="$(pwd)"  # Run from repository root
+test -f "$REPO_ROOT/mcp-servers/development/dev-mcp-server/venv/bin/python" && echo "✅ dev-mcp-server Python exists" || echo "❌ dev-mcp-server Python missing"
+test -f "$REPO_ROOT/mcp-servers/development/discord-mcp-server/venv/bin/python" && echo "✅ discord-mcp-server Python exists" || echo "❌ discord-mcp-server Python missing"
+```
+
+Or use the check script which handles paths automatically:
+```bash
+./scripts/check_mcp_servers.sh
 ```
 
 ## Common Issues and Solutions
@@ -116,7 +137,7 @@ test -f /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server/ven
    ```
 3. **Verify dependencies are installed**:
    ```bash
-   cd mcp-servers/dev-mcp-server
+   cd mcp-servers/development/dev-mcp-server
    source venv/bin/activate
    pip list | grep mcp
    ```
@@ -129,7 +150,7 @@ test -f /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/discord-mcp-server/ven
 brew install python@3.10
 
 # Recreate venv with correct Python
-cd mcp-servers/dev-mcp-server
+cd mcp-servers/development/dev-mcp-server
 rm -rf venv
 python3.10 -m venv venv
 source venv/bin/activate
@@ -140,7 +161,7 @@ pip install -r requirements.txt
 
 **Solution**: Install dependencies:
 ```bash
-cd mcp-servers/dev-mcp-server
+cd mcp-servers/development/dev-mcp-server
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -149,9 +170,15 @@ pip install -r requirements.txt
 
 **Solution**: Verify paths in `~/.cursor/mcp.json` are absolute and correct:
 ```bash
-# Check if paths exist
-ls -la /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server/venv/bin/python
-ls -la /Users/aaa-j/Documents/GitHub/MCP-ISO/mcp-servers/dev-mcp-server/src/index.py
+# Check if paths exist (replace with your actual repository path)
+REPO_ROOT="$(pwd)"  # Run from repository root
+ls -la "$REPO_ROOT/mcp-servers/development/dev-mcp-server/venv/bin/python"
+ls -la "$REPO_ROOT/mcp-servers/development/dev-mcp-server/src/index.py"
+```
+
+Or use the check script:
+```bash
+./scripts/check_mcp_servers.sh
 ```
 
 ## Quick Verification Checklist
@@ -177,6 +204,6 @@ Once servers are verified as running:
 ---
 
 **Note**: If you're still having issues after following this guide, check the server-specific README files:
-- [Dev-MCP-Server README](mcp-servers/dev-mcp-server/README.md)
-- [Discord-MCP-Server README](mcp-servers/discord-mcp-server/README.md)
+- [Dev-MCP-Server README](mcp-servers/development/dev-mcp-server/README.md)
+- [Discord-MCP-Server README](mcp-servers/development/discord-mcp-server/README.md)
 

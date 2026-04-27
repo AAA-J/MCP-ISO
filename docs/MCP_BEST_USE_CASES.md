@@ -2,6 +2,8 @@
 
 This document explores the best use cases for Model Context Protocol (MCP) servers and related AI architecture patterns including reasoning engines, high-speed local runtimes, synthetic data workflows, AI extensions, autonomy controls, agents, memory systems, and councils.
 
+For the repository's canonical component taxonomy (6 standard + 4 experimental/emerging) and minimum MCP server sets by stack type, see [IDE AI Agent Components Standard](./IDE_AI_AGENT_COMPONENTS_STANDARD.md).
+
 ---
 
 ## Table of Contents

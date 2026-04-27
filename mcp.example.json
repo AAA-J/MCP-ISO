@@ -1,0 +1,109 @@
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "npx",
+      "args": [
+        "n8n-mcp"
+      ],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "http://localhost:5678/api/v1",
+        "N8N_API_KEY": "your_n8n_api_key"
+      }
+    },
+    "dev-mcp-server": {
+      "command": "/path/to/MCP-ISO/mcp-servers/development/dev-mcp-server/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/development/dev-mcp-server/src/index.py"
+      ]
+    },
+    "discord-mcp-server": {
+      "command": "/path/to/MCP-ISO/mcp-servers/development/discord-mcp-server/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/development/discord-mcp-server/src/index.py"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_github_personal_access_token"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/your/project"
+      ]
+    },
+    "mssql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mssql-mcp-server"
+      ],
+      "env": {
+        "CONNECTION_AZURE_SQL": "Server=tcp:your-server.database.windows.net,1433;Database=yourDB;User ID=yourUser@your-server;Password=yourPassword;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      }
+    },
+    "app-docs": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-docs/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-docs/src/index.py"
+      ],
+      "env": {
+        "BASE_DIR": "/path/to/your/project",
+        "DOCS_DIR": "docs"
+      }
+    },
+    "app-db-readonly": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-db-readonly/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-db-readonly/src/index.py"
+      ],
+      "env": {
+        "DB_TYPE": "azure_sql",
+        "DB_CONNECTION_STRING": "Driver={ODBC Driver 18 for SQL Server};Server=tcp:your-server.database.windows.net,1433;Database=yourDB;Uid=yourUser;Pwd=yourPassword;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+      }
+    },
+    "app-api": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-api/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-api/src/index.py"
+      ],
+      "env": {
+        "API_BASE_URL": "http://localhost:8000",
+        "API_TYPE": "rest",
+        "AUTH_TYPE": "bearer"
+      }
+    },
+    "app-ops": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-ops/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-ops/src/index.py"
+      ],
+      "env": {
+        "CICD_TYPE": "github_actions",
+        "CICD_TOKEN": "ghp_your_github_personal_access_token",
+        "CICD_OWNER": "your-github-org-or-username",
+        "CICD_REPO": "your-repo-name"
+      }
+    },
+    "app-domain": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-domain/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-domain/src/index.py"
+      ],
+      "env": {
+        "DOMAIN_TOOLS_CONFIG": "/path/to/MCP-ISO/mcp-servers/application/app-domain/domain_tools.yaml"
+      }
+    }
+  }
+}

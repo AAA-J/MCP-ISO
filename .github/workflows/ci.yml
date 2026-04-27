@@ -1,0 +1,83 @@
+name: CI Consistency Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─── 1. Markdown link check ───────────────────────────────────────────────
+  link-check:
+    name: Check Markdown Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install markdown-link-check
+        run: npm install -g markdown-link-check
+
+      - name: Check links in all Markdown files
+        run: |
+          find . -name "*.md" \
+            ! -path "./.git/*" \
+            ! -path "./node_modules/*" \
+            | xargs -I {} markdown-link-check {} \
+              --config .github/markdown-link-check-config.json \
+            || true
+          # '|| true' prevents failure on expected external link timeouts;
+          # treat this step as advisory until baseline is established.
+
+  # ─── 2. mcp.example.json schema validation ────────────────────────────────
+  config-schema:
+    name: Validate mcp.example.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate mcp.example.json structure
+        run: python scripts/validate_mcp_config.py mcp.example.json
+
+  # ─── 3. Server README presence check ─────────────────────────────────────
+  readme-check:
+    name: Verify Server READMEs Exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check each server directory has a README.md
+        run: |
+          MISSING=0
+          for dir in mcp-servers/development/* mcp-servers/application/*; do
+            if [ -d "$dir" ] && [ ! -f "$dir/README.md" ]; then
+              echo "MISSING README: $dir"
+              MISSING=$((MISSING + 1))
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then
+            echo "::error::$MISSING server director(ies) are missing README.md"
+            exit 1
+          fi
+          echo "All server directories have a README.md"
+
+  # ─── 4. Python syntax check (fast, no deps) ───────────────────────────────
+  python-syntax:
+    name: Python Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax across all servers
+        run: |
+          find mcp-servers -name "*.py" | xargs python -m py_compile
+          echo "All Python files pass syntax check"

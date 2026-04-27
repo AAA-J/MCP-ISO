@@ -1,0 +1,87 @@
+{
+  "_profile": "Enterprise Team",
+  "_description": "Governance-first. All Startup Team servers plus domain logic, expanded ops, and notes on where to add auth gateway and audit integrations.",
+  "_maturity": "Core and Recommended tier servers. Mark any additions as Experimental until validated.",
+  "_setup": "Replace /path/to/MCP-ISO with your actual repo path. Replace placeholder tokens, connection strings, and YAML paths with real values.",
+  "_tradeoffs": [
+    "Larger surface area requires explicit ownership per server (see SERVER_QUALITY_BAR.md).",
+    "app-domain YAML config should be reviewed and scoped to your business domain before enabling.",
+    "Consider adding an auth gateway MCP layer in front of this set for SSO/RBAC enforcement.",
+    "Add audit logging at the ops or gateway layer to satisfy compliance requirements."
+  ],
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/your/project"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_github_personal_access_token"
+      }
+    },
+    "app-docs": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-docs/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-docs/src/index.py"
+      ],
+      "env": {
+        "BASE_DIR": "/path/to/your/project",
+        "DOCS_DIR": "docs"
+      }
+    },
+    "app-db-readonly": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-db-readonly/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-db-readonly/src/index.py"
+      ],
+      "env": {
+        "DB_TYPE": "azure_sql",
+        "DB_CONNECTION_STRING": "Driver={ODBC Driver 18 for SQL Server};Server=tcp:your-server.database.windows.net,1433;Database=yourDB;Uid=yourUser;Pwd=yourPassword;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+      }
+    },
+    "app-api": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-api/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-api/src/index.py"
+      ],
+      "env": {
+        "API_BASE_URL": "http://localhost:8000",
+        "API_TYPE": "rest",
+        "AUTH_TYPE": "bearer",
+        "AUTH_TOKEN": "your_api_auth_token"
+      }
+    },
+    "app-ops": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-ops/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-ops/src/index.py"
+      ],
+      "env": {
+        "CICD_TYPE": "github_actions",
+        "CICD_TOKEN": "ghp_your_github_personal_access_token",
+        "CICD_OWNER": "your-github-org-or-username",
+        "CICD_REPO": "your-repo-name"
+      }
+    },
+    "app-domain": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-domain/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-domain/src/index.py"
+      ],
+      "env": {
+        "DOMAIN_TOOLS_CONFIG": "/path/to/MCP-ISO/mcp-servers/application/app-domain/domain_tools.yaml",
+        "API_BASE_URL": "http://localhost:8000",
+        "AUTH_TOKEN": "your_api_auth_token"
+      }
+    }
+  }
+}

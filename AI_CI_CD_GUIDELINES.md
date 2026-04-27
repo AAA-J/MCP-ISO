@@ -343,12 +343,29 @@ python src/index.py
 
 ### Check Documentation
 ```bash
-# Verify all READMEs exist
+# Verify all server READMEs exist
 find mcp-servers -name "README.md"
 
-# Check for broken links (if tool available)
-# markdown-link-check README.md
+# Check for broken links (requires markdown-link-check)
+npm install -g markdown-link-check
+find . -name "*.md" ! -path "./.git/*" | xargs markdown-link-check
 ```
+
+### Validate MCP Config
+```bash
+# Validate mcp.example.json (or any mcp.json file)
+python scripts/validate_mcp_config.py mcp.example.json
+python scripts/validate_mcp_config.py ~/.cursor/mcp.json
+```
+
+### Python Syntax Check (all servers, no deps needed)
+```bash
+find mcp-servers -name "*.py" | xargs python -m py_compile && echo "All OK"
+```
+
+### Full CI Check Suite
+All of the above checks run automatically via GitHub Actions on every push and PR.
+See `.github/workflows/ci.yml` for the full workflow definition.
 
 ---
 

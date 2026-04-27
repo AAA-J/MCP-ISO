@@ -1,0 +1,36 @@
+{
+  "_profile": "Solo Builder",
+  "_description": "Minimum viable set for a single developer. Covers code, git, and docs. Add app-api or app-db-readonly when you hit a repeated workflow gap.",
+  "_maturity": "All Core or Recommended tier servers",
+  "_setup": "Replace /path/to/MCP-ISO with your actual repo path. Replace placeholder tokens with real values.",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/your/project"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_github_personal_access_token"
+      }
+    },
+    "app-docs": {
+      "command": "/path/to/MCP-ISO/mcp-servers/application/app-docs/venv/bin/python",
+      "args": [
+        "/path/to/MCP-ISO/mcp-servers/application/app-docs/src/index.py"
+      ],
+      "env": {
+        "BASE_DIR": "/path/to/your/project",
+        "DOCS_DIR": "docs"
+      }
+    }
+  }
+}

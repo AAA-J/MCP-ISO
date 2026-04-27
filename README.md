@@ -7,6 +7,29 @@
 1. **Help developers build MCP servers** - Tools, documentation, and examples
 2. **Archive of MCP servers** - Collection of MCP server implementations
 
+## Start in 5 Minutes
+
+**Happy path — single command, then verify:**
+
+```bash
+# 1. Clone and enter the repo
+git clone https://github.com/your-username/MCP-ISO.git && cd MCP-ISO
+
+# 2. Run the automated setup (Python 3.10+ required)
+./setup.sh
+
+# 3. Verify everything is wired correctly
+./scripts/check_mcp_servers.sh
+```
+
+That's it. When `check_mcp_servers.sh` shows all green, copy `mcp.example.json` into your `~/.cursor/mcp.json`, update the `/path/to/` placeholders, and restart your IDE.
+
+> Need the full walkthrough or troubleshooting help? See **[SETUP.md](SETUP.md)** and **[VERIFY_MCP_SERVERS.md](VERIFY_MCP_SERVERS.md)**.
+>
+> Not sure which servers to enable? See the [stack profiles](docs/stack-profiles/README.md) — pick Solo, Startup, or Enterprise and use the matching `mcp.json` snippet.
+
+---
+
 ## Quick Start
 
 See **[SETUP.md](SETUP.md)** for complete setup instructions.
@@ -34,7 +57,8 @@ MCP-ISO/
 ├── requirements.txt             # Root Python dependencies
 ├── docs/                        # General MCP development documentation
 │   ├── MCP_SERVER_GUIDE.md     # Guide for creating MCP servers
-│   └── MCP_BEST_USE_CASES.md   # Best practices and patterns
+│   ├── MCP_BEST_USE_CASES.md   # Best practices and patterns
+│   └── IDE_AI_AGENT_COMPONENTS_STANDARD.md # Standard component model and MCP minimum sets
 ├── scripts/                     # Utility scripts
 │   ├── check_mcp_servers.sh    # Verify MCP server configuration
 │   ├── fix_mcp_servers.sh      # Fix common setup issues
@@ -81,6 +105,10 @@ Located in `mcp-servers/application/`. These servers are designed for greenfield
 - **[Verify MCP Servers](VERIFY_MCP_SERVERS.md)** - Guide to verify MCP servers are running correctly
 - [MCP Server Guide](docs/MCP_SERVER_GUIDE.md) - Guide to creating MCP servers
 - [MCP Best Use Cases](docs/MCP_BEST_USE_CASES.md) - Best practices and patterns
+- [IDE AI Agent Components Standard](docs/IDE_AI_AGENT_COMPONENTS_STANDARD.md) - 6 standard + 4 emerging components, minimum MCP sets, and stack decision tree
+- [Server Quality Bar](docs/SERVER_QUALITY_BAR.md) - Health check, test, auth, and ownership standards per server
+- [Stack Profiles](docs/stack-profiles/README.md) - Concrete `mcp.json` examples for Solo, Startup, and Enterprise
+- [Discord Upstream Update Plan](docs/DISCORD_UPSTREAM_UPDATE_PLAN.md) - Process for tracking Discord docs/API changes and safely updating `discord-mcp-server`
 
 ## Utility Scripts
 

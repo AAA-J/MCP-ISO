@@ -1,0 +1,10 @@
+{
+  "ignorePatterns": [
+    { "pattern": "^https://discord.com" },
+    { "pattern": "^https://modelcontextprotocol.io" },
+    { "pattern": "^http://localhost" }
+  ],
+  "timeout": "10s",
+  "retryCount": 2,
+  "aliveStatusCodes": [200, 206, 301, 302, 403]
+}
